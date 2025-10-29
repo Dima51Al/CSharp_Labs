@@ -1,0 +1,39 @@
+# Build results
+bin/
+obj/
+[Aa]rtifacts/
+[Bb]uild/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider/JetBrains
+.idea/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# NuGet
+**/packages/
+*.nupkg
+*.snupkg
+
+# Other
+*.cache
+*.tmp
+*.pdb
+*.db
+*.DS_Store
+Thumbs.db
+
+# Publish outputs
+**/publish/
+**/Release/
+**/Debug/
