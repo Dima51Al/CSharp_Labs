@@ -7,6 +7,7 @@ C:\CSharp_Labs\lab_3\obj\Debug\net9.0\lab_3.GeneratedMSBuildEditorConfig.editorc
 C:\CSharp_Labs\lab_3\obj\Debug\net9.0\lab_3.AssemblyInfoInputs.cache
 C:\CSharp_Labs\lab_3\obj\Debug\net9.0\lab_3.AssemblyInfo.cs
 C:\CSharp_Labs\lab_3\obj\Debug\net9.0\lab_3.csproj.CoreCompileInputs.cache
+C:\CSharp_Labs\lab_3\obj\Debug\net9.0\lab_3.sourcelink.json
 C:\CSharp_Labs\lab_3\obj\Debug\net9.0\lab_3.dll
 C:\CSharp_Labs\lab_3\obj\Debug\net9.0\refint\lab_3.dll
 C:\CSharp_Labs\lab_3\obj\Debug\net9.0\lab_3.pdb

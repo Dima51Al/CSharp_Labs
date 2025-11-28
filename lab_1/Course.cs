@@ -59,7 +59,7 @@ namespace Lab1
             return IncludedTeachers;
         }
 
-        public List<Students> GetStudents()
+        public List<Student> GetStudents()
         {
             return IncludedStudents;
         }
