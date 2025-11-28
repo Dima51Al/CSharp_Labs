@@ -54,9 +54,14 @@ namespace Lab1
             teacher.DeleteCourse(this);
         }
 
-        public List<Teacher> GetStudents()
+        public List<Teacher> GetTeachers()
         {
             return IncludedTeachers;
+        }
+
+        public List<Students> GetStudents()
+        {
+            return IncludedStudents;
         }
         
     }
