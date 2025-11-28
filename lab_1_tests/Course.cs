@@ -31,13 +31,13 @@ public class CourseTests
     }
 
     [Fact]
-    public void GetStudents_Is_Bug_Should_Return_Teachers()
+    public void GetTeachers()
     {
         var course = new Course("ОШИБКА", 777);
         var teacher = new Teacher("Препод", "Тестов", "Тестович", 200);
         teacher.EnrollInCourse(course);
 
-        var result = course.GetStudents();
-        Assert.Single(result); // возвращает список преподавателей, хотя называется GetStudents
+        var result = course.GetTeachers();
+        Assert.Single(result); 
     }
 }
