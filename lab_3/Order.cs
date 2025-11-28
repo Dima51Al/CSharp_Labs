@@ -11,12 +11,16 @@ namespace Lab3
         public bool PaidStatus { get; private set; } = false;
 
         public int DeliveryStatus { get; private set; } = 0; // 0 - не оплачен, 1 - сборка, 2 - у курьера, 3 - доставлен
+        private float marja;
 
 
         public Order(User user, Delivery delivery)
         {
             OrderUser = user;
             OrderDelivery = delivery;
+            
+            FinanceManipulation marketMarja = new FinanceManipulation();
+            marja = marketMarja.GetMarja();
         }
 
         public void AddPosition(OrderPosition position)
@@ -58,7 +62,7 @@ namespace Lab3
             {
                 cost += item.GetCost();
             }
-
+            cost *= marja;
             cost *= OrderUser.GetDiscount();
             cost += OrderDelivery.GetDeliveryCost();
 

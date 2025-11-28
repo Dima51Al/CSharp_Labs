@@ -35,7 +35,7 @@ namespace Lab3
             Console.WriteLine($"текущий баланс: {user.Balance}");
 
 
-            Delivery delivery = new Delivery(5.0f); 
+            Delivery delivery = new Delivery(5.0f, 4.0f); 
             Order order = new Order(user, delivery);
 
 

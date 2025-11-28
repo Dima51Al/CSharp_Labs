@@ -7,12 +7,18 @@ namespace Lab3
         // Словарь: ключ = продукт, значение = количество
         private Dictionary<MarketProduct, int> positions = new Dictionary<MarketProduct, int>();
 
-        public Market(){}
+
+
+        public Market()
+        {
+
+        }
+
 
         public void AddProduct(MarketProduct product, int count)
         {
             if (positions.ContainsKey(product))
-                positions[product] += count; 
+                positions[product] += count;
             else
                 positions[product] = count;
         }
