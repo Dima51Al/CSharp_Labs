@@ -5,7 +5,7 @@ namespace Lab1
 {
     public class Course
     {
-        public bool Is_active = true; // удаление курса -> false
+        public bool IsActive = true; // удаление курса -> false
         public int CourseId = 0;
         private List<Student> IncludedStudents = new List<Student>();
         private List<Teacher> IncludedTeachers = new List<Teacher>();
@@ -19,15 +19,17 @@ namespace Lab1
 
         public void Remove()
         {
-            this.Is_active = false;
+            this.IsActive = false;
             foreach (Student student in IncludedStudents)
             {
-                student.DropCourse(this);
+                student.DeleteCourse(this);
             }
             foreach (Teacher teacher in IncludedTeachers)
             {
-                teacher.DropCourse(this);
+                teacher.DeleteCourse(this);
             }
+            IncludedStudents.Clear();
+            IncludedTeachers.Clear();
         }
 
         public void AddStudent(Student student)
@@ -38,7 +40,7 @@ namespace Lab1
         public void RemoveStudent(Student student)
         {
             IncludedStudents.Remove(student);
-            student.DropCourse(this);
+            student.DeleteCourse(this);
         }
 
         public void AddTeacher(Teacher teacher)
@@ -49,7 +51,7 @@ namespace Lab1
         public void RemoveTeacher(Teacher teacher)
         {
             IncludedTeachers.Remove(teacher);
-            teacher.DropCourse(this);
+            teacher.DeleteCourse(this);
         }
 
         public List<Teacher> GetStudents()

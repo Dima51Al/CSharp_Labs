@@ -20,9 +20,14 @@ namespace Lab1
             course.AddStudent(this);
         }
 
-        public void DropCourse(Course course)
+        public void DeleteCourse(Course course)
         {
             Ids_courses.Remove(course.CourseId);
+        }
+
+        public void DropCourse(Course course)
+        {
+            DeleteCourse(course);
             course.RemoveStudent(this);
         }
 
