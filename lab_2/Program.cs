@@ -7,7 +7,8 @@ namespace Lab2
     {
         static void Main(string[] args)
         {
-            Player player = new Player(50);
+            Inventory inventory = new Inventory(50f);
+            Player player = new Player(inventory);
 
             Weapon sword1 = (Weapon)ItemRepository.CreateItem("Wooden Sword");
             Weapon sword2 = (Weapon)ItemRepository.CreateItem("Wooden Sword");

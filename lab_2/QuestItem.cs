@@ -9,6 +9,7 @@ namespace Lab2
 
 
         public override void Accept(IUseBehavior behavior, Player player)
-        {}
+        { }
     }
 }
+

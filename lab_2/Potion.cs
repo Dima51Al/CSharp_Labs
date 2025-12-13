@@ -37,7 +37,5 @@ namespace Lab2
                     return 0;
             }
         }
-    
-}
-
+    }
 }

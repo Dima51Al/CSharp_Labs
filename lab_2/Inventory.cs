@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
-
+using System;
 namespace Lab2
 {
-    public class Inventory
+    public class Inventory: IInventory
     {
         public float MaxWeight { get; set; }
-        private List<Item> items = new List<Item>();
+        private readonly List<Item> _items = new List<Item>();
+        public IReadOnlyList<Item> Items => _items;
 
         public Inventory(float maxWeight)
         {
@@ -15,24 +15,22 @@ namespace Lab2
 
         public void AddItem(Item item)
         {
-            items.Add(item);
+            _items.Add(item);
         }
 
         public void RemoveItem(Item item)
             {
-                if (item.Is_quest)
+                if (item.IsQuest)
                 {
                     Console.WriteLine($"Невозможно выбросить квестовый предмет: {item.Name}");
                     return;
                 }
-                Items.Remove(item);
+                _items.Remove(item);
             }
 
         public float CurrentWeight()
         {
-            return items.Sum(i => i.Weight);
+            return _items.Sum(i => i.Weight);
         }
-
-        public List<Item> Items => items;
     }
 }

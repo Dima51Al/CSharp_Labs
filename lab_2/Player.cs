@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace Lab2
 {
     public class Player
     {
         private Dictionary<PotionType, int> ActivePotionBonuses = new();
-
+        
         public int BaseDamage { get; private set; } = 1;
         public int BaseLuck { get; private set; } = 1;
         public int BaseSpeed { get; private set; } = 20;
@@ -28,12 +29,9 @@ namespace Lab2
             int bonus = potion.GetBonus(this);
             ActivePotionBonuses[potion.Type] = bonus;
             ApplyPotionBonus(potion.Type, bonus);
-
             Inventory.RemoveItem(potion);
-
             Console.WriteLine($"{potion.Name} применён, бонус {bonus}! Зелье удалено из инвентаря.");
         }
-
 
         private void ApplyPotionBonus(PotionType type, int bonus)
         {
@@ -64,18 +62,21 @@ namespace Lab2
 
         public Weapon? EquippedWeapon { get; set; } = null;
         public Dictionary<ArmorType, Armor?> EquippedArmor { get; private set; }
-        public Inventory Inventory { get; private set; }
 
-        public Player(float maxInventoryWeight)
+
+        public IInventory Inventory { get; private set; }
+
+        public Player(IInventory inventory)
         {
-            Inventory = new Inventory(maxInventoryWeight);
+            Inventory = inventory;
+            
             EquippedArmor = new Dictionary<ArmorType, Armor?>()
-        {
-            { ArmorType.Head, null },
-            { ArmorType.Chest, null },
-            { ArmorType.Legs, null },
-            { ArmorType.Feet, null }
-        };
+            {
+                { ArmorType.Head, null },
+                { ArmorType.Chest, null },
+                { ArmorType.Legs, null },
+                { ArmorType.Feet, null }
+            };
         }
 
         public void AddBuff(string stat, int value)
@@ -90,6 +91,7 @@ namespace Lab2
         }
 
         public int GetDamage() => BaseDamage + (EquippedWeapon?.Damage ?? 0) + damageBuff;
+
         public int GetLuck()
         {
             int bonus = 0;
@@ -113,6 +115,7 @@ namespace Lab2
                 if (armor != null) bonus += armor.Defense;
             return BaseDefense + bonus + defenseBuff;
         }
+
         public void EquipWeapon(Weapon weapon)
         {
             EquippedWeapon = weapon;
@@ -120,7 +123,7 @@ namespace Lab2
 
         public void UnEquipWeapon(Weapon weapon)
         {
-            if (EquippedWeapon == weapon){ EquippedWeapon = null; }
+            if (EquippedWeapon == weapon) EquippedWeapon = null;
         }
 
         public void EquipArmor(Armor armor)
@@ -130,13 +133,14 @@ namespace Lab2
 
         public void UnEquipArmor(Armor armor)
         {
-            if (EquippedArmor[armor.Type] == armor){ EquippedArmor[armor.Type] = null; }
+            if (EquippedArmor[armor.Type] == armor) EquippedArmor[armor.Type] = null;
         }
 
         public void DisplayInventory()
         {
             Console.WriteLine("=== Надето ===");
             Console.WriteLine($"Оружие: {(EquippedWeapon != null ? EquippedWeapon.Name + $" (урон {EquippedWeapon.Damage})" : "нет")}");
+
             foreach (var slot in EquippedArmor.Keys)
             {
                 var armor = EquippedArmor[slot];
@@ -151,7 +155,8 @@ namespace Lab2
             Console.WriteLine($"Защита: База {BaseDefense} + Бафф {GetDefense() - BaseDefense} = {GetDefense()}");
 
             Console.WriteLine("\n=== В инвентаре ===");
-            if (Inventory.Items.Count == 0) Console.WriteLine("Инвентарь пуст");
+            if (Inventory.Items.Count == 0) 
+                Console.WriteLine("Инвентарь пуст");
             else
             {
                 foreach (var item in Inventory.Items)
