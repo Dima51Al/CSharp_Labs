@@ -32,6 +32,7 @@ namespace Lab3
 
             Delivery delivery = new Delivery(5.0f, 4.0f);
             Order order = new Order(user, delivery);
+            order.Subscribe(new LoggerObserver());
 
             order.AddPosition(new OrderPosition(apple, 2));
             order.AddPosition(new OrderPosition(pasta, 1));

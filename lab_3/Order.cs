@@ -6,10 +6,22 @@ namespace Lab3
     public class Order
     {
         private List<OrderPosition> positions = new List<OrderPosition>();
+        private List<IOrderObserver> observers = new List<IOrderObserver>();
+
         public User OrderUser { get; private set; }
         public Delivery OrderDelivery { get; private set; }
         public bool PaidStatus { get; private set; } = false;
-        public int DeliveryStatus { get; private set; } = 0;
+        private int _deliveryStatus = 0;
+        public int DeliveryStatus
+        {
+            get => _deliveryStatus;
+            private set
+            {
+                int old = _deliveryStatus;
+                _deliveryStatus = value;
+                NotifyStatusChanged(old, value);
+            }
+        }
         private IPricingStrategy _pricingStrategy;
 
         public IReadOnlyList<OrderPosition> Positions => positions.AsReadOnly();
@@ -19,6 +31,29 @@ namespace Lab3
             OrderUser = user;
             OrderDelivery = delivery;
         }
+
+        private void NotifyStatusChanged(int oldStatus, int newStatus)
+        {
+            foreach (var observer in observers)
+                observer.OnOrderStatusChanged(this, oldStatus, newStatus);
+        }
+
+        private void NotifyPaid()
+        {
+            foreach (var observer in observers)
+                observer.OnOrderPaid(this);
+        }
+
+        private void NotifyDelivered()
+        {
+            foreach (var observer in observers)
+                observer.OnOrderDelivered(this);
+        }
+
+        public void Subscribe(IOrderObserver observer) => observers.Add(observer);
+        public void Unsubscribe(IOrderObserver observer) => observers.Remove(observer);
+
+
 
         public void SetPricingStrategy(IPricingStrategy strategy)
         {
@@ -73,6 +108,7 @@ namespace Lab3
             {
                 OrderUser.ReduceBalance(orderCost);
                 PaidStatus = true;
+                NotifyPaid();
                 return true;
             }
             return false;
@@ -106,6 +142,7 @@ namespace Lab3
             {
                 Console.WriteLine($"Заказ Доставлен");
                 SetDeliveryStatus(4);
+                NotifyDelivered();
                 return true;
             }
             return false;
