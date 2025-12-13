@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Lab3
 {
@@ -7,26 +8,28 @@ namespace Lab3
         private List<OrderPosition> positions = new List<OrderPosition>();
         public User OrderUser { get; private set; }
         public Delivery OrderDelivery { get; private set; }
-
         public bool PaidStatus { get; private set; } = false;
+        public int DeliveryStatus { get; private set; } = 0;
+        private IPricingStrategy _pricingStrategy;
 
-        public int DeliveryStatus { get; private set; } = 0; // 0 - не оплачен, 1 - сборка, 2 - у курьера, 3 - доставлен
-        private float marja;
-
+        public IReadOnlyList<OrderPosition> Positions => positions.AsReadOnly();
 
         public Order(User user, Delivery delivery)
         {
             OrderUser = user;
             OrderDelivery = delivery;
-            
-            FinanceManipulation marketMarja = new FinanceManipulation();
-            marja = marketMarja.GetMarja();
+        }
+
+        public void SetPricingStrategy(IPricingStrategy strategy)
+        {
+            _pricingStrategy = strategy;
         }
 
         public void AddPosition(OrderPosition position)
         {
             positions.Add(position);
         }
+
         public void RemovePosition(OrderPosition position)
         {
             positions.Remove(position);
@@ -34,47 +37,33 @@ namespace Lab3
 
         public void SetDeliveryStatus(int status)
         {
-            if (0 <= status && status <= 4)
-            {
+            if (status >= 0 && status <= 4)
                 DeliveryStatus = status;
-            }
         }
 
         public float GetOrderCookTime()
         {
             float time = 0;
             foreach (var item in positions)
-            {
                 time += item.GetCookTime();
-            }
             return time;
         }
 
-        public float GetOrderDelivetyCost()
+        public float GetOrderDeliveryCost()
         {
             return OrderDelivery.GetDeliveryCost();
-
         }
+
         public float GetOrderCost()
         {
-            float cost = 0;
-            foreach (var item in positions)
-            {
-                cost += item.GetCost();
-            }
-            cost *= marja;
-            cost *= OrderUser.GetDiscount();
-            cost += OrderDelivery.GetDeliveryCost();
-
-            return cost;
-
+            if (_pricingStrategy == null)
+                throw new InvalidOperationException("Pricing strategy not set");
+            return _pricingStrategy.CalculateCost(this);
         }
+
         public float GetOrderDeliveryTime()
         {
-            float time = GetOrderCookTime();
-            time += OrderDelivery.GetDeliveryTime();
-            return time;
-
+            return GetOrderCookTime() + OrderDelivery.GetDeliveryTime();
         }
 
         public bool PayOrder()
@@ -86,10 +75,7 @@ namespace Lab3
                 PaidStatus = true;
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public bool DeliveryNextStep()
@@ -126,4 +112,3 @@ namespace Lab3
         }
     }
 }
-    
