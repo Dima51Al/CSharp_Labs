@@ -7,6 +7,7 @@ namespace Lab3
     {
         private List<OrderPosition> positions = new List<OrderPosition>();
         private List<IOrderObserver> observers = new List<IOrderObserver>();
+        private IOrderState _currentState;
 
         public User OrderUser { get; private set; }
         public IDelivery OrderDelivery { get; private set; }
@@ -30,21 +31,22 @@ namespace Lab3
         {
             OrderUser = user;
             OrderDelivery = delivery;
+            _currentState = OrderStateFactory.CreateState(0);
         }
 
-        private void NotifyStatusChanged(int oldStatus, int newStatus)
+        public void NotifyStatusChanged(int oldStatus, int newStatus)
         {
             foreach (var observer in observers)
                 observer.OnOrderStatusChanged(this, oldStatus, newStatus);
         }
 
-        private void NotifyPaid()
+        public void NotifyPaid()
         {
             foreach (var observer in observers)
                 observer.OnOrderPaid(this);
         }
 
-        private void NotifyDelivered()
+        public void NotifyDelivered()
         {
             foreach (var observer in observers)
                 observer.OnOrderDelivered(this);
@@ -73,7 +75,14 @@ namespace Lab3
         public void SetDeliveryStatus(int status)
         {
             if (status >= 0 && status <= 4)
-                DeliveryStatus = status;
+                SetDeliveryStatusInternal(status);
+        }
+
+        internal void SetDeliveryStatusInternal(int status)
+        {
+            var oldStatus = _currentState.StatusCode;
+            _currentState = OrderStateFactory.CreateState(status);
+            NotifyStatusChanged(oldStatus, status);
         }
 
         public float GetOrderCookTime()
@@ -116,36 +125,8 @@ namespace Lab3
 
         public bool DeliveryNextStep()
         {
-            if (DeliveryStatus == 0 && !PaidStatus)
-            {
-                if (PayOrder())
-                {
-                    SetDeliveryStatus(1);
-                    return true;
-                }
-            }
-            if (DeliveryStatus == 1)
-            {
-                float timeCook = GetOrderCookTime();
-                Console.WriteLine($"Статус сборки. примерно {(int)timeCook / 60 + 1} минут");
-                SetDeliveryStatus(2);
-                return true;
-            }
-            if (DeliveryStatus == 2)
-            {
-                float deliverTime = GetOrderDeliveryTime();
-                Console.WriteLine($"Заказ прибудет примерно через {(int)deliverTime / 60 + 1} минут");
-                SetDeliveryStatus(3);
-                return true;
-            }
-            if (DeliveryStatus == 3)
-            {
-                Console.WriteLine($"Заказ Доставлен");
-                SetDeliveryStatus(4);
-                NotifyDelivered();
-                return true;
-            }
-            return false;
+            return _currentState.ProcessNextStep(this);
         }
     }
 }
+
