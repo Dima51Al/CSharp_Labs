@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Lab3
 {
+    
     public class Order
     {
         private List<OrderPosition> positions = new List<OrderPosition>();
@@ -82,6 +83,7 @@ namespace Lab3
         {
             var oldStatus = _currentState.StatusCode;
             _currentState = OrderStateFactory.CreateState(status);
+            _deliveryStatus = status; 
             NotifyStatusChanged(oldStatus, status);
         }
 
