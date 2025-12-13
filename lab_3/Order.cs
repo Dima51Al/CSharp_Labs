@@ -9,7 +9,7 @@ namespace Lab3
         private List<IOrderObserver> observers = new List<IOrderObserver>();
 
         public User OrderUser { get; private set; }
-        public Delivery OrderDelivery { get; private set; }
+        public IDelivery OrderDelivery { get; private set; }
         public bool PaidStatus { get; private set; } = false;
         private int _deliveryStatus = 0;
         public int DeliveryStatus
@@ -26,7 +26,7 @@ namespace Lab3
 
         public IReadOnlyList<OrderPosition> Positions => positions.AsReadOnly();
 
-        public Order(User user, Delivery delivery)
+        public Order(User user, IDelivery delivery)
         {
             OrderUser = user;
             OrderDelivery = delivery;

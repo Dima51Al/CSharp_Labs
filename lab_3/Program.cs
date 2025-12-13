@@ -30,7 +30,9 @@ namespace Lab3
             user.TopBalance(5000.0f);
             Console.WriteLine($"текущий баланс: {user.Balance}");
 
-            Delivery delivery = new Delivery(5.0f, 4.0f);
+            IDelivery delivery = new Delivery(5.0f, 4.0f);
+            delivery = new ExpressDeliveryDecorator(delivery);
+
             Order order = new Order(user, delivery);
             order.Subscribe(new LoggerObserver());
 

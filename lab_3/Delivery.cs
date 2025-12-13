@@ -2,7 +2,7 @@ using System;
 
 namespace Lab3
 {
-    public class Delivery
+    public class Delivery:IDelivery
     {
 
         public float R { get; private set; }
@@ -19,7 +19,7 @@ namespace Lab3
         }
         public float GetDeliveryTime()
         {
-            return R * 200; //100рублей за км
+            return R * 200; //200рублей за км
         }
 
 
