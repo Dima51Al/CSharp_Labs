@@ -7,7 +7,8 @@ public class UnEquipTest
     public void Player_InitialStats_ShouldBeCorrect()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
 
         // Act & Assert
         Assert.Equal(1, player.BaseDamage);
@@ -24,7 +25,8 @@ public class UnEquipTest
     public void EquipWeapon_ShouldUpdateGetDamage()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
         var sword = (Weapon)ItemRepository.CreateItem("Wooden Sword");
 
         // Act

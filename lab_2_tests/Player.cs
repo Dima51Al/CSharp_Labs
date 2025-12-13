@@ -7,7 +7,8 @@ public class PlayerTests
     public void Player_InitialStats_ShouldBeCorrect()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
 
         // Act & Assert
         Assert.Equal(1, player.BaseDamage);
@@ -24,7 +25,8 @@ public class PlayerTests
     public void EquipWeapon_ShouldUpdateGetDamage()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
         var sword = (Weapon)ItemRepository.CreateItem("Wooden Sword");
 
         // Act
@@ -39,7 +41,8 @@ public class PlayerTests
     public void EquipArmor_ShouldUpdateGetDefenseAndLuckAndSpeed()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
         var helmet = (Armor)ItemRepository.CreateItem("Leather Helmet");
         var chest = (Armor)ItemRepository.CreateItem("Leather Chestplate");
 
@@ -64,7 +67,8 @@ public class PlayerTests
     public void AddBuff_ShouldIncreaseStats()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
 
         // Act
         player.AddBuff("Damage", 5);
@@ -79,7 +83,8 @@ public class PlayerTests
     public void ApplyPotion_ShouldApplyBonusAndRemoveFromInventory()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
         var potion = (Potion)ItemRepository.CreateItem("Damage Potion");
         player.Inventory.AddItem(potion);
 
@@ -94,7 +99,8 @@ public class PlayerTests
     public void ApplyPotion_NotInInventory_ShouldNotChangeStats()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
         var potion = (Potion)ItemRepository.CreateItem("Damage Potion");
 
         // Act

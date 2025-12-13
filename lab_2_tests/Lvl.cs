@@ -7,7 +7,8 @@ public class WeaponLevelUpTests
     public void LevelUp_ShouldIncreaseLevel_AndRemoveDuplicate()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
         var w1 = (Weapon)ItemRepository.CreateItem("Wooden Sword");
         var w2 = (Weapon)ItemRepository.CreateItem("Wooden Sword");
         player.Inventory.AddItem(w1);
@@ -28,7 +29,8 @@ public class WeaponLevelUpTests
     public void Weapon_ShouldLevelUp_ToLevel3()
     {
         // Arrange
-        var player = new Player(50);
+        var inventory = new Inventory(50f);
+        var player = new Player(inventory);
 
         var w1 = (Weapon)ItemRepository.CreateItem("Wooden Sword");
         var w2 = (Weapon)ItemRepository.CreateItem("Wooden Sword");
