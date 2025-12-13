@@ -5,8 +5,8 @@ namespace Lab1
 {
     public class Course
     {
-        public bool IsActive = true; // удаление курса -> false
-        public int CourseId = 0;
+        public bool IsActive = true; // удаление курса делает false
+        private int CourseId{ get; set; }
         private List<Student> IncludedStudents = new List<Student>();
         private List<Teacher> IncludedTeachers = new List<Teacher>();
         public string Name = "";
