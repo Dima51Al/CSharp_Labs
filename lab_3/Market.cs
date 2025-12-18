@@ -2,9 +2,9 @@ using System;
 
 namespace Lab3
 {
-     public class Market
+    public class Market
     {
-        // Словарь: ключ = продукт, значение = количество
+        //cловарь: ключ - продукт, значение - количество
         private Dictionary<MarketProduct, int> positions = new Dictionary<MarketProduct, int>();
 
 

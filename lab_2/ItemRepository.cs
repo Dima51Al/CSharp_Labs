@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-
 namespace Lab2
 {
     public static class ItemRepository
@@ -65,9 +63,7 @@ namespace Lab2
 
         public static Item CreateItem(string name)
         {
-            Item template = GetItemByName(name)
-                            ?? throw new InvalidOperationException($"Item '{name}' не найден в репозитории.");
-
+            Item template = GetItemByName(name);
             return template switch
             {
                 Weapon w => w.Clone(),

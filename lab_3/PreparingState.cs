@@ -11,7 +11,7 @@ namespace Lab3
         public bool ProcessNextStep(Order order)
         {
             float timeCook = order.GetOrderCookTime();
-            Console.WriteLine($"Статус сборки. примерно {(int)timeCook / 60 + 1} минут");
+            Console.WriteLine($"Сброка, осталось +- {(int)timeCook / 60 + 1} минут(ы)");
             order.SetDeliveryStatusInternal(2);
             return true;
         }

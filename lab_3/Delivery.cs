@@ -5,8 +5,8 @@ namespace Lab3
     public class Delivery:IDelivery
     {
 
-        public float R { get; private set; }
-        public float W { get; private set; }
+        public float R { get; private set; } // расстояние
+        public float W { get; private set; } // вес
         public Delivery(float rasstoianie, float weight)
         {
             R = rasstoianie;
@@ -15,11 +15,11 @@ namespace Lab3
 
         public float GetDeliveryCost()
         {
-            return W*20 + R * 100; //100рублей за км
+            return W * 20 + R * 100; //100рублей за км
         }
         public float GetDeliveryTime()
         {
-            return R * 200; //200рублей за км
+            return R * 200; //200 сек за км
         }
 
 

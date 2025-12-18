@@ -5,8 +5,8 @@ namespace Lab3
 {
     public class MarketPosition
     {
-        public MarketProduct Product{ get; protected set; }
-        public int Count { get; protected set; }
+        public MarketProduct Product{ get; set; }
+        public int Count { get;  set; }
 
 
         public MarketPosition(MarketProduct product, int count)

@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+
 
 namespace Lab3
 {
@@ -79,7 +79,7 @@ namespace Lab3
                 SetDeliveryStatusInternal(status);
         }
 
-        internal void SetDeliveryStatusInternal(int status)
+        public void SetDeliveryStatusInternal(int status)
         {
             var oldStatus = _currentState.StatusCode;
             _currentState = OrderStateFactory.CreateState(status);

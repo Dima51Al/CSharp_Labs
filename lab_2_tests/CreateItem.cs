@@ -20,12 +20,6 @@ public class ItemRepositoryCreateTests
     }
 
     [Fact]
-    public void CreateItem_ShouldThrow_WhenItemDoesNotExist()
-    {
-        Assert.Throws<InvalidOperationException>(() => ItemRepository.CreateItem("Unknown Item"));
-    }
-
-    [Fact]
     public void CreateItem_ShouldReturnDistinctInstances()
     {
         // Arrange

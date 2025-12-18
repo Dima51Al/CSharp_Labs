@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 
 namespace Lab1
 {
     public class Course
     {
-        public bool IsActive = true; // удаление курса делает false
-        private int CourseId{ get; set; }
+        public bool IsActive = true; // удаление курса делает false 
+        public int CourseId{ get; private   set; }
         private List<Student> IncludedStudents = new List<Student>();
         private List<Teacher> IncludedTeachers = new List<Teacher>();
         public string Name = "";

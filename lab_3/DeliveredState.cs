@@ -10,7 +10,7 @@ namespace Lab3
 
         public bool ProcessNextStep(Order order)
         {
-            Console.WriteLine($"Заказ Доставлен");
+            Console.WriteLine("Заказ Доставлен");
             order.SetDeliveryStatusInternal(4);
             order.NotifyDelivered();
             return true;

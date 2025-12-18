@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Lab3
 {
@@ -11,10 +10,10 @@ namespace Lab3
 
             IMarketProductFactory factory = new MarketProductFactory();
 
-            MarketProduct apple = factory.Create(1, "Apple", 0.5f, 0.15f);
-            MarketProduct banana = factory.Create(2, "Banana", 0.3f, 0.12f);
-            MarketProduct pasta = factory.Create(3, "Pasta", 5.0f, 0.5f, 15.0f);
-            MarketProduct salad = factory.Create(4, "Salad", 4.0f, 0.3f, 5.0f);
+            MarketProduct apple = factory.Create(1, "apple", 0.5f, 0.15f);
+            MarketProduct banana = factory.Create(2, "banana", 0.3f, 0.12f);
+            MarketProduct pasta = factory.Create(3, "pasta", 5.0f, 0.5f, 15.0f);
+            MarketProduct salad = factory.Create(4, "salad", 4.0f, 0.3f, 5.0f);
 
             market.AddProduct(apple, 10);
             market.AddProduct(banana, 20);
@@ -23,7 +22,7 @@ namespace Lab3
 
             market.PrintAllPositions();
 
-            User user = new User("John Doe", 100.0f);
+            User user = new User("Дмитрий", 100.0f);
             Console.WriteLine($"текущий баланс: {user.Balance}");
 
             user.SetDiscount(10);
